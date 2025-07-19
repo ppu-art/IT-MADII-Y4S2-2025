@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mad/screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
 
@@ -75,6 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
         onPressed: (){
           if(_key.currentState!.validate()){
               // Call API or Backend Service for Login
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
           }
         },
         child: Text("Login", style: TextStyle(color: Colors.white),),
