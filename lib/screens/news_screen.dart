@@ -10,6 +10,13 @@ class NewsScreen extends StatefulWidget {
 class _NewsScreenState extends State<NewsScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.indigoAccent,
+        title: Text("News"),
+        centerTitle: true,
+        elevation: 0.5,
+      ),
+    );
   }
 }

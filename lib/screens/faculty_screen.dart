@@ -10,6 +10,12 @@ class FacultyScreen extends StatefulWidget {
 class _FacultyScreenState extends State<FacultyScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.indigoAccent,
+        title: Text("Faculty"),
+        centerTitle: true,
+      ),
+    );
   }
 }

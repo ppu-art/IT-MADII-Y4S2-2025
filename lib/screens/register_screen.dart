@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mad/data/app_shared_pref.dart';
 import 'package:mad/screens/home_screen.dart';
 import 'package:mad/screens/login_screen.dart';
 
@@ -13,11 +14,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _isObscureText = true;
   final _key = GlobalKey<FormState>();
 
+  final _fullNameTextEditingController = TextEditingController();
+  final _emailTextEditingController = TextEditingController();
+  final _passwordTextEditingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final fullNameWidget = Padding(
       padding: EdgeInsets.only(bottom: 8),
       child: TextFormField(
+        controller: _fullNameTextEditingController,
         decoration: InputDecoration(
           hintText: "Full Name",
           prefixIcon: Icon(Icons.account_circle),
@@ -35,6 +41,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final emailWidget = Padding(
       padding: EdgeInsets.only(bottom: 8),
       child: TextFormField(
+        controller: _emailTextEditingController,
         decoration: InputDecoration(
           hintText: "Email",
           prefixIcon: Icon(Icons.account_circle),
@@ -52,6 +59,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final passwordWidget = Padding(
       padding: EdgeInsets.only(bottom: 8),
       child: TextFormField(
+        controller: _passwordTextEditingController,
         obscureText: _isObscureText,
         decoration: InputDecoration(
           hintText: "Password",
@@ -92,11 +100,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: ElevatedButton(
           onPressed: () {
             if (_key.currentState!.validate()) {
-              // Call API or Backend Service for Login
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => HomeScreen()),
-              );
+              String fullName = _fullNameTextEditingController.text;
+              String email = _emailTextEditingController.text;
+              String password = _passwordTextEditingController.text;
+              _register(fullName, email, password);
             }
           },
           child: Text("Register", style: TextStyle(color: Colors.white)),
@@ -156,6 +163,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _register(String fullName, String email, String password) async {
+    final appSharedPref = AppSharedPref();
+    await appSharedPref.register(fullName, email, password);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => LoginScreen()),
     );
   }
 }
