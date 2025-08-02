@@ -13,7 +13,7 @@ class _FacultyScreenState extends State<FacultyScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.indigoAccent,
-        title: Text("Faculty"),
+        title: Text("Faculty", style: TextStyle(color: Colors.white)),
         centerTitle: true,
       ),
     );

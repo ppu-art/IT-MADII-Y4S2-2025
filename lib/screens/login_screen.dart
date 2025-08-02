@@ -98,6 +98,24 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
 
+    final _skip = Padding(
+      padding: EdgeInsets.only(top: 32),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextButton(
+            onPressed: () {
+              final route = MaterialPageRoute(
+                builder: (context) => MainScreen(),
+              );
+              Navigator.pushReplacement(context, route);
+            },
+            child: Text("Skip"),
+          ),
+        ],
+      ),
+    );
+
     final navigateToRegister = Padding(
       padding: EdgeInsets.only(bottom: 16),
       child: Row(
@@ -109,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
               final route = MaterialPageRoute(
                 builder: (context) => RegisterScreen(),
               );
-              Navigator.push(context, route);
+              Navigator.pushReplacement(context, route);
             },
             child: Text("Register"),
           ),
@@ -139,6 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         passwordWidget,
                         forgetPassword,
                         loginButton,
+                        _skip,
                       ],
                     ),
                   ),

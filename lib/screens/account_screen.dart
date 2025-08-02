@@ -39,7 +39,7 @@ class _AccountScreenState extends State<AccountScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.indigoAccent,
-        title: Text("Account"),
+        title: Text("Account", style: TextStyle(color: Colors.white)),
         centerTitle: true,
         elevation: 0.5,
       ),

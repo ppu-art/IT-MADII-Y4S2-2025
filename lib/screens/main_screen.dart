@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mad/screens/account_screen.dart';
 import 'package:mad/screens/faculty_screen.dart';
 import 'package:mad/screens/home_screen.dart';
+import 'package:mad/screens/more_screen.dart';
 import 'package:mad/screens/news_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -12,7 +13,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List screens = [HomeScreen(), FacultyScreen(), NewsScreen(), AccountScreen()];
+  List screens = [HomeScreen(), FacultyScreen(), NewsScreen(), MoreScreen()];
 
   int currentIndex = 0;
 
@@ -26,7 +27,7 @@ class _MainScreenState extends State<MainScreen> {
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.class_outlined),
-        label: "Search",
+        label: "Faculty",
         backgroundColor: Colors.indigoAccent,
       ),
       BottomNavigationBarItem(
@@ -35,8 +36,8 @@ class _MainScreenState extends State<MainScreen> {
         backgroundColor: Colors.indigoAccent,
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.person),
-        label: "Profile",
+        icon: Icon(Icons.more_vert),
+        label: "More",
         backgroundColor: Colors.indigoAccent,
       ),
     ];

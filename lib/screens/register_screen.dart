@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mad/data/app_shared_pref.dart';
 import 'package:mad/screens/home_screen.dart';
 import 'package:mad/screens/login_screen.dart';
+import 'package:mad/screens/main_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -112,6 +113,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
 
+    final _skip = Padding(
+      padding: EdgeInsets.only(top: 32),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextButton(
+            onPressed: () {
+              final route = MaterialPageRoute(
+                builder: (context) => MainScreen(),
+              );
+              Navigator.pushReplacement(context, route);
+            },
+            child: Text("Skip"),
+          ),
+        ],
+      ),
+    );
+
     final navigateToLogin = Padding(
       padding: EdgeInsets.only(bottom: 16),
       child: Row(
@@ -123,7 +142,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               final route = MaterialPageRoute(
                 builder: (context) => LoginScreen(),
               );
-              Navigator.push(context, route);
+              Navigator.pushReplacement(context, route);
             },
             child: Text("Login"),
           ),
@@ -153,6 +172,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         emailWidget,
                         passwordWidget,
                         registerButton,
+                        _skip,
                       ],
                     ),
                   ),

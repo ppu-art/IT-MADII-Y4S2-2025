@@ -13,7 +13,7 @@ class _NewsScreenState extends State<NewsScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.indigoAccent,
-        title: Text("News"),
+        title: Text("News", style: TextStyle(color: Colors.white)),
         centerTitle: true,
         elevation: 0.5,
       ),
