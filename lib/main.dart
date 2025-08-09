@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mad/data/db_manager.dart';
 import 'package:mad/data/file_storage.dart';
 import 'package:mad/model/menu.dart';
+import 'package:mad/provider/favorite_provider.dart';
 import 'package:mad/screens/splash_screen.dart';
 import 'package:mad/service/menu_service.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,12 +30,21 @@ void main() async {
     "Teacher",
     "Alumni",
   ];
-  // for (var item in menuItems) {
-  //   Menu menu = Menu(title: item, description: item);
-  //   await MenuService.instance.addMenu(menu);
-  // }
 
-  runApp(const App());
+  for (var item in menuItems) {
+    Menu menu = Menu(title: item, description: item);
+    await MenuService.instance.addMenu(menu);
+  }
+
+  final provider = MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => FavoriteProvider()),
+      //...
+    ],
+    child: App(),
+  );
+
+  runApp(provider);
 }
 
 class App extends StatelessWidget {
@@ -40,7 +52,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'PPUA',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

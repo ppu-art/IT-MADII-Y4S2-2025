@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mad/controller/favorite_controller.dart';
 import 'package:mad/data/app_shared_pref.dart';
 import 'package:mad/model/menu.dart';
+import 'package:mad/provider/favorite_provider.dart';
+import 'package:mad/screens/favorite_screen.dart';
 import 'package:mad/service/menu_service.dart';
+import 'package:provider/provider.dart';
+import 'package:badges/badges.dart' as badges;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,6 +20,9 @@ class _HomeScreenState extends State<HomeScreen> {
   final searchController = TextEditingController();
   String _fullName = "Guest";
   List<Menu> _menuList = [];
+  int _totalFavorite = 0;
+
+  final favoriteController = Get.put(FavoriteController());
 
   @override
   void initState() {
@@ -38,6 +47,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // final favoriteProvider = Provider.of<FavoriteProvider>(
+    //   context,
+    //   listen: true,
+    // );
+    List<Map<String, int>> favoriteList = favoriteController.favorites;
+    setState(() {
+      _totalFavorite = favoriteList.length;
+    });
+
     final searchField = Padding(
       padding: EdgeInsets.only(top: 16, left: 16, right: 16),
       child: TextField(
@@ -62,6 +80,50 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
 
+    List<String> designList = List.generate(3, (i) => "design${i + 1}.jpg");
+    print("Design List : $designList");
+
+    List<Widget> menuItems = designList.map((item) {
+      return Padding(
+        padding: EdgeInsets.only(right: 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Image.asset("assets/images/$item", height: 200, width: 200),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                GestureDetector(
+                  child: Icon(Icons.favorite),
+                  onTap: () {
+                    // favoriteProvider.addFavorite(item);
+                    favoriteController.addFavorite(item);
+                  },
+                ),
+              ],
+            ),
+            Text(
+              "${"Architecture and Interior Design".substring(0, 25)}...",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+            Text(
+              "${"Transform spaces and inspire lifestyles in the Architecture and Interior Design major. Master the art of designing functional and beautiful environments, blending aesthetics with practicality. Build a career that shapes the world around us.".substring(0, 25)}...",
+            ),
+          ],
+        ),
+      );
+    }).toList();
+
+    final rowItems = Padding(
+      padding: EdgeInsets.only(left: 8),
+      child: Row(children: menuItems),
+    );
+
+    final _designListRowWidget = SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: rowItems,
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: ListTile(
@@ -73,15 +135,40 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.notifications_none)),
+          IconButton(
+            onPressed: () {
+              // final route = MaterialPageRoute(
+              //   builder: (context) => FavoriteScreen(),
+              // );
+              // Navigator.push(context, route);
+              Get.to(FavoriteScreen());
+            },
+            icon: badges.Badge(
+              badgeContent: Obx(
+                () => Text(
+                  "${favoriteController.favorites.length}",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              position: badges.BadgePosition.topEnd(top: 0, end: 3),
+              child: IconButton(
+                icon: Icon(Icons.notifications),
+                onPressed: () {},
+              ),
+            ),
+          ),
         ],
       ),
-      body: Column(
+      body: ListView(
         children: [
           searchField,
           _slide,
           _menuTitleRowWidget,
           _menuListRowWidget,
+          _designTitleRowWidget,
+          _designListRowWidget,
+          _itTitleRowWidget,
+          _itListRowWidget,
         ],
       ),
     );
@@ -115,6 +202,54 @@ class _HomeScreenState extends State<HomeScreen> {
     return Padding(
       padding: EdgeInsets.only(left: 16, top: 16),
       child: Row(children: menuItems),
+    );
+  }
+
+  Widget get _designTitleRowWidget => Padding(
+    padding: EdgeInsets.only(left: 8, right: 8, top: 8),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text("Design"),
+        Row(children: [Text("See All"), Icon(Icons.navigate_next)]),
+      ],
+    ),
+  );
+
+  Widget get _itTitleRowWidget => Padding(
+    padding: EdgeInsets.only(left: 16, right: 16, top: 16),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text("IT"),
+        Row(children: [Text("See All"), Icon(Icons.navigate_next)]),
+      ],
+    ),
+  );
+
+  Widget get _itListRowWidget {
+    List<String> designList = List.generate(3, (i) => "it${i + 1}.jpg");
+    print("IT List : $designList");
+    List<Widget> menuItems = designList.map((item) {
+      return GestureDetector(
+        child: Padding(
+          padding: EdgeInsets.only(right: 8),
+          child: Image.asset("assets/images/$item", height: 200, width: 200),
+        ),
+        onTap: () {
+          favoriteController.addFavorite(item);
+        },
+      );
+    }).toList();
+
+    final rowItems = Padding(
+      padding: EdgeInsets.only(left: 8),
+      child: Row(children: menuItems),
+    );
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: rowItems,
     );
   }
 }
