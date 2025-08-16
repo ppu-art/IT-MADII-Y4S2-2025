@@ -124,11 +124,13 @@ class _HomeScreenState extends State<HomeScreen> {
       child: rowItems,
     );
 
+    String welcome = "hi".tr + " $_fullName";
+
     return Scaffold(
       appBar: AppBar(
         title: ListTile(
           title: Text(
-            "Hi, $_fullName",
+            "$welcome",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
           subtitle: Text("Here is your activity today."),
@@ -199,9 +201,22 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }).toList();
 
+    // Option1
+    // return Padding(
+    //   padding: EdgeInsets.only(left: 16, top: 16),
+    //   child: SingleChildScrollView(
+    //     scrollDirection: Axis.horizontal,
+    //     child: Row(children: menuItems),
+    //   ),
+    // );
+
+    // Option2
     return Padding(
       padding: EdgeInsets.only(left: 16, top: 16),
-      child: Row(children: menuItems),
+      child: SizedBox(
+        height: 100,
+        child: ListView(scrollDirection: Axis.horizontal, children: menuItems),
+      ),
     );
   }
 

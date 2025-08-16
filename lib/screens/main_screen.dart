@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mad/screens/account_screen.dart';
 import 'package:mad/screens/faculty_screen.dart';
 import 'package:mad/screens/home_screen.dart';
@@ -22,22 +23,22 @@ class _MainScreenState extends State<MainScreen> {
     final bottomNavItems = [
       BottomNavigationBarItem(
         icon: Icon(Icons.home),
-        label: "Home",
+        label: "home".tr,
         backgroundColor: Colors.indigoAccent,
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.class_outlined),
-        label: "Faculty",
+        label: "faculty".tr,
         backgroundColor: Colors.indigoAccent,
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.newspaper),
-        label: "News",
+        label: "news".tr,
         backgroundColor: Colors.indigoAccent,
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.more_vert),
-        label: "More",
+        label: "more".tr,
         backgroundColor: Colors.indigoAccent,
       ),
     ];

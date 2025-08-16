@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:mad/data/db_manager.dart';
 import 'package:mad/data/file_storage.dart';
@@ -6,6 +7,7 @@ import 'package:mad/model/menu.dart';
 import 'package:mad/provider/favorite_provider.dart';
 import 'package:mad/screens/splash_screen.dart';
 import 'package:mad/service/menu_service.dart';
+import 'package:mad/translate/app_translate.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -36,15 +38,15 @@ void main() async {
     await MenuService.instance.addMenu(menu);
   }
 
-  final provider = MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (_) => FavoriteProvider()),
-      //...
-    ],
-    child: App(),
-  );
+  // final provider = MultiProvider(
+  //   providers: [
+  //     ChangeNotifierProvider(create: (_) => FavoriteProvider()),
+  //     //...
+  //   ],
+  //   child: App(),
+  // );
 
-  runApp(provider);
+  runApp(App());
 }
 
 class App extends StatelessWidget {
@@ -54,10 +56,23 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'PPUA',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
+      // theme: ThemeData(
+      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      // ),
       home: SplashScreen(),
+      translations: AppTranslate(),
+      locale: Get.deviceLocale,
+      supportedLocales: [Locale("en", ""), Locale("km", "")],
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+
+      // Theme
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      themeMode: Get.isDarkMode ? ThemeMode.dark : ThemeMode.light, //
     );
   }
 }
