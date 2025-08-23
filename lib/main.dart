@@ -56,9 +56,6 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'PPUA',
-      // theme: ThemeData(
-      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      // ),
       home: SplashScreen(),
       translations: AppTranslate(),
       locale: Get.deviceLocale,

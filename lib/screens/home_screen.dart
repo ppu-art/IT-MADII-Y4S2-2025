@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mad/controller/favorite_controller.dart';
 import 'package:mad/data/app_shared_pref.dart';
+import 'package:mad/model/faculty.dart';
 import 'package:mad/model/menu.dart';
 import 'package:mad/provider/favorite_provider.dart';
+import 'package:mad/screens/faculty_detail_screen.dart';
 import 'package:mad/screens/favorite_screen.dart';
+import 'package:mad/service/faculty_service.dart';
 import 'package:mad/service/menu_service.dart';
 import 'package:provider/provider.dart';
 import 'package:badges/badges.dart' as badges;
@@ -84,33 +87,40 @@ class _HomeScreenState extends State<HomeScreen> {
     print("Design List : $designList");
 
     List<Widget> menuItems = designList.map((item) {
-      return Padding(
-        padding: EdgeInsets.only(right: 8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Image.asset("assets/images/$item", height: 200, width: 200),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                GestureDetector(
-                  child: Icon(Icons.favorite),
-                  onTap: () {
-                    // favoriteProvider.addFavorite(item);
-                    favoriteController.addFavorite(item);
-                  },
-                ),
-              ],
-            ),
-            Text(
-              "${"Architecture and Interior Design".substring(0, 25)}...",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-            Text(
-              "${"Transform spaces and inspire lifestyles in the Architecture and Interior Design major. Master the art of designing functional and beautiful environments, blending aesthetics with practicality. Build a career that shapes the world around us.".substring(0, 25)}...",
-            ),
-          ],
+      final imageItem = "assets/images/$item";
+
+      return GestureDetector(
+        child: Padding(
+          padding: EdgeInsets.only(right: 8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Image.asset("$imageItem", height: 200, width: 200),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    child: Icon(Icons.favorite),
+                    onTap: () {
+                      // favoriteProvider.addFavorite(item);
+                      favoriteController.addFavorite(item);
+                    },
+                  ),
+                ],
+              ),
+              Text(
+                "${"Architecture and Interior Design".substring(0, 25)}...",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+              Text(
+                "${"Transform spaces and inspire lifestyles in the Architecture and Interior Design major. Master the art of designing functional and beautiful environments, blending aesthetics with practicality. Build a career that shapes the world around us.".substring(0, 25)}...",
+              ),
+            ],
+          ),
         ),
+        onTap: () {
+          Get.to(FacultyDetailScreen(), arguments: imageItem);
+        },
       );
     }).toList();
 
