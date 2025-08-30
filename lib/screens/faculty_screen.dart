@@ -41,8 +41,8 @@ class _FacultyScreenState extends State<FacultyScreen> {
                 return Column(
                   children: [
                     ListTile(
-                      title: Text("${faculty.title}"),
-                      subtitle: Text("${faculty.titleKm}"),
+                      title: Text("${faculty.name}"),
+                      subtitle: Text("${faculty.nameKh}"),
                     ),
                     Divider(),
                   ],

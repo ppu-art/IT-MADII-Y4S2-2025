@@ -1,16 +1,21 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'faculty.g.dart';
+
+@JsonSerializable(explicitToJson: true)
 class Faculty {
-  String? title;
-  String? titleKm;
+  int? id;
+  String? name;
+  String? nameKh;
+  @JsonKey(name: "user_email")
+  String? email;
+  String? phone;
 
-  Faculty({this.title, this.titleKm});
+  Faculty({this.id, this.name, this.nameKh, this.email, this.phone});
 
-  Map<String, dynamic> toMap() {
-    return {'title': title, 'titleKm': titleKm};
-  }
+  // Serialization
+  Map<String, dynamic> toJson() => _$FacultyToJson(this);
 
-  factory Faculty.fromMap(Map<String, dynamic> map) {
-    String title = map["title"] ?? "";
-    String titleKm = map["title_km"] ?? "";
-    return Faculty(title: title, titleKm: titleKm);
-  }
+  // Deserialization
+  factory Faculty.fromMap(Map<String, dynamic> json) => _$FacultyFromJson(json);
 }

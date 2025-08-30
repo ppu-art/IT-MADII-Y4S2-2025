@@ -65,7 +65,6 @@ class App extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-
       // Theme
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
