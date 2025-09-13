@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "640025630782",
+    "project_id": "ppua-98c49",
+    "storage_bucket": "ppua-98c49.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:640025630782:android:9ed213051b44365bbe596f",
+        "android_client_info": {
+          "package_name": "kh.edu.ppua.mad"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiisyQ7u3-RY-HpfYfrlfHqQ0ugcNJLOE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

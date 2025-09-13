@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mad/data/app_shared_pref.dart';
 import 'package:mad/screens/home_screen.dart';
@@ -187,11 +188,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Future<void> _register(String fullName, String email, String password) async {
-    final appSharedPref = AppSharedPref();
-    await appSharedPref.register(fullName, email, password);
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
-    );
+    // final appSharedPref = AppSharedPref();
+    // await appSharedPref.register(fullName, email, password);
+
+    final auth = FirebaseAuth.instance;
+    try {
+      await auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+      );
+    } on FirebaseAuthException catch (e) {
+      print("Error Code : ${e.code}");
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Register failed, ${e.code}")));
+    } catch (error) {
+      print(error);
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Register failed, ${error}")));
+    }
   }
 }

@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mad/screens/account_screen.dart';
 import 'package:mad/screens/language_screen.dart';
 import 'package:mad/screens/login_screen.dart';
 import 'package:mad/screens/theme_screen.dart';
@@ -12,6 +14,21 @@ class MoreScreen extends StatefulWidget {
 }
 
 class _MoreScreenState extends State<MoreScreen> {
+  String _fullName = "Guest";
+  final auth = FirebaseAuth.instance;
+
+  void initState() {
+    super.initState();
+    _getFullName();
+  }
+
+  Future<void> _getFullName() async {
+    final User? currentUser = await auth.currentUser;
+    setState(() {
+      _fullName = currentUser!.displayName ?? currentUser!.email ?? "Guest";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,17 +66,24 @@ class _MoreScreenState extends State<MoreScreen> {
           Divider(),
           ListTile(
             title: Text("profile".tr),
-            subtitle: Text("Guest"),
+            subtitle: Text("$_fullName"),
             onTap: () {
-              final route = MaterialPageRoute(
-                builder: (context) => LoginScreen(),
-              );
-              Navigator.pushReplacement(context, route);
+              _checkNavigateToAccount();
             },
           ),
           Divider(),
         ],
       ),
     );
+  }
+
+  void _checkNavigateToAccount() async {
+    final User? currentUser = await auth.currentUser;
+    if (currentUser == null) {
+      final route = MaterialPageRoute(builder: (context) => LoginScreen());
+      Navigator.pushReplacement(context, route);
+    }
+    final route = MaterialPageRoute(builder: (context) => AccountScreen());
+    Navigator.pushReplacement(context, route);
   }
 }

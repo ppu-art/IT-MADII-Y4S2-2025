@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mad/data/app_shared_pref.dart';
 import 'package:mad/screens/home_screen.dart';
@@ -172,10 +173,30 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _login(String username, String password) async {
-    final appSharedPref = AppSharedPref();
-    bool isAuthenticated = await appSharedPref.login(username, password);
-    if (isAuthenticated) {
-      print("Login success");
+    // final appSharedPref = AppSharedPref();
+    // bool isAuthenticated = await appSharedPref.login(username, password);
+    // if (isAuthenticated) {
+    //   print("Login success");
+    //   ScaffoldMessenger.of(
+    //     context,
+    //   ).showSnackBar(SnackBar(content: Text("Login success")));
+    //   Navigator.pushReplacement(
+    //     context,
+    //     MaterialPageRoute(builder: (context) => MainScreen()),
+    //   );
+    // } else {
+    //   print("Login failed");
+    //   ScaffoldMessenger.of(
+    //     context,
+    //   ).showSnackBar(SnackBar(content: Text("Login failed")));
+    // }
+
+    final auth = FirebaseAuth.instance;
+    try {
+      await auth.signInWithEmailAndPassword(
+        email: username,
+        password: password,
+      );
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text("Login success")));
@@ -183,11 +204,16 @@ class _LoginScreenState extends State<LoginScreen> {
         context,
         MaterialPageRoute(builder: (context) => MainScreen()),
       );
-    } else {
-      print("Login failed");
+    } on FirebaseAuthException catch (e) {
+      print("Error Code : ${e.code}");
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text("Login failed")));
+      ).showSnackBar(SnackBar(content: Text("Login failed, ${e.code}")));
+    } catch (error) {
+      print(error);
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Login failed, ${error}")));
     }
   }
 }

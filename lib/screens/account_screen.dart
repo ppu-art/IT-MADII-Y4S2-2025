@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:mad/data/app_shared_pref.dart';
 import 'package:mad/screens/login_screen.dart';
 
@@ -13,6 +16,8 @@ class _AccountScreenState extends State<AccountScreen> {
   String? _fullName;
   String? _email;
 
+  final auth = FirebaseAuth.instance;
+
   @override
   void initState() {
     super.initState();
@@ -20,9 +25,13 @@ class _AccountScreenState extends State<AccountScreen> {
   }
 
   Future<void> _currentUser() async {
-    final appSharedPref = AppSharedPref();
-    String? fullName = await appSharedPref.getSharedPrefByKey("fullName");
-    String? email = await appSharedPref.getSharedPrefByKey("email");
+    // final appSharedPref = AppSharedPref();
+    // String? fullName = await appSharedPref.getSharedPrefByKey("fullName");
+    // String? email = await appSharedPref.getSharedPrefByKey("email");
+
+    final currentUser = await auth.currentUser;
+    String? fullName = currentUser!.displayName;
+    String? email = currentUser!.email;
     setState(() {
       _fullName = fullName;
       _email = email;
@@ -30,8 +39,10 @@ class _AccountScreenState extends State<AccountScreen> {
   }
 
   Future<void> _logout() async {
-    final appSharedPref = AppSharedPref();
-    appSharedPref.logout();
+    // final appSharedPref = AppSharedPref();
+    // appSharedPref.logout();
+    await auth.signOut();
+    Get.offAll(LoginScreen());
   }
 
   @override
@@ -42,6 +53,8 @@ class _AccountScreenState extends State<AccountScreen> {
         title: Text("Account", style: TextStyle(color: Colors.white)),
         centerTitle: true,
         elevation: 0.5,
+
+        actions: [Icon(Icons.edit, color: Colors.white)],
       ),
       body: Center(
         child: Column(

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mad/controller/favorite_controller.dart';
@@ -27,6 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final favoriteController = Get.put(FavoriteController());
 
+  final auth = FirebaseAuth.instance;
+
   @override
   void initState() {
     super.initState();
@@ -35,9 +38,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _getFullName() async {
-    final fullName = await AppSharedPref().getFullName();
+    //final fullName = await AppSharedPref().getFullName();
+    final User? currentUser = await auth.currentUser;
     setState(() {
-      _fullName = fullName!;
+      _fullName = currentUser!.displayName ?? currentUser!.email ?? "Guest";
     });
   }
 
