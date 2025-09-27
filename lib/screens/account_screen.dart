@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:mad/data/app_shared_pref.dart';
 import 'package:mad/screens/login_screen.dart';
+import 'package:mad/service/facebook_auth_service.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -41,7 +42,8 @@ class _AccountScreenState extends State<AccountScreen> {
   Future<void> _logout() async {
     // final appSharedPref = AppSharedPref();
     // appSharedPref.logout();
-    await auth.signOut();
+    // await auth.signOut();
+    await FacebookAuthService.instance.facebookSignOut();
     Get.offAll(LoginScreen());
   }
 
