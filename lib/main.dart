@@ -25,20 +25,20 @@ void main() async {
   // data = await fileStorage.getDataFromFile();
   // print("Data Response From File 2: $data");
   // DB SQlite
-  await DBManager.instance.database;
-
-  List<String> menuItems = [
-    "Faculty",
-    "Subject",
-    "Student",
-    "Teacher",
-    "Alumni",
-  ];
-
-  for (var item in menuItems) {
-    Menu menu = Menu(title: item, description: item);
-    await MenuService.instance.addMenu(menu);
-  }
+  // //await DBManager.instance.database;
+  //
+  // List<String> menuItems = [
+  //   "Faculty",
+  //   "Subject",
+  //   "Student",
+  //   "Teacher",
+  //   "Alumni",
+  // ];
+  //
+  // for (var item in menuItems) {
+  //   Menu menu = Menu(title: item, description: item);
+  //   await MenuService.instance.addMenu(menu);
+  // }
 
   // final provider = MultiProvider(
   //   providers: [
