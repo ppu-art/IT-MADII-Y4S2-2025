@@ -2,10 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mad/data/app_shared_pref.dart';
 import 'package:mad/screens/home_screen.dart';
 import 'package:mad/screens/main_screen.dart';
 import 'package:mad/screens/register_screen.dart';
+import 'package:mad/service/facebook_auth_service.dart';
+import 'package:mad/service/google_auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -126,9 +129,17 @@ class _LoginScreenState extends State<LoginScreen> {
         children: [
           IconButton(
             onPressed: () {
-              _facebookLogin();
+              FacebookAuthService.instance.facebookLogin();
+              Get.offAll(MainScreen());
             },
             icon: Icon(Icons.facebook, size: 40),
+          ),
+          IconButton(
+            onPressed: () {
+              GoogleAuthService.instance.googleSignIn();
+              Get.offAll(MainScreen());
+            },
+            icon: Icon(Icons.g_mobiledata, size: 60),
           ),
         ],
       ),
@@ -232,30 +243,6 @@ class _LoginScreenState extends State<LoginScreen> {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text("Login failed, ${error}")));
-    }
-  }
-
-  Future<void> _facebookLogin() async {
-    try {
-      final LoginResult result = await FacebookAuth.instance.login();
-      if (result.status == LoginStatus.success) {
-        print(result.accessToken!.tokenString);
-        Get.snackbar("accessToken", result.accessToken!.tokenString);
-        // Success
-
-        // SignIn with Firebase
-        OAuthCredential credential = FacebookAuthProvider.credential(
-          result.accessToken!.tokenString,
-        );
-        FirebaseAuth.instance.signInWithCredential(credential);
-
-        // Navigate to main screen
-        Get.offAll(MainScreen());
-      } else {
-        Get.snackbar("Error", "Something went wrong");
-      }
-    } catch (error) {
-      print("Error $error");
     }
   }
 }

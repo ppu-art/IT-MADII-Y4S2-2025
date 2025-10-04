@@ -8,40 +8,7 @@ import 'package:mad/translate/app_translate.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Configure Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-  // File Storage
-  // final fileStorage = FileStorage();
-  // String data = await fileStorage.getDataFromFile();
-  // print("Data Response From File 1 : $data");
-  // fileStorage.writeDataToFile("Hi, PPUA");
-  // data = await fileStorage.getDataFromFile();
-  // print("Data Response From File 2: $data");
-  // DB SQlite
-  // //await DBManager.instance.database;
-  //
-  // List<String> menuItems = [
-  //   "Faculty",
-  //   "Subject",
-  //   "Student",
-  //   "Teacher",
-  //   "Alumni",
-  // ];
-  //
-  // for (var item in menuItems) {
-  //   Menu menu = Menu(title: item, description: item);
-  //   await MenuService.instance.addMenu(menu);
-  // }
-
-  // final provider = MultiProvider(
-  //   providers: [
-  //     ChangeNotifierProvider(create: (_) => FavoriteProvider()),
-  //     //...
-  //   ],
-  //   child: App(),
-  // );
-
   runApp(App());
 }
 

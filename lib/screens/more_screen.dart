@@ -77,13 +77,8 @@ class _MoreScreenState extends State<MoreScreen> {
     );
   }
 
-  void _checkNavigateToAccount() async {
-    final User? currentUser = await auth.currentUser;
-    if (currentUser == null) {
-      final route = MaterialPageRoute(builder: (context) => LoginScreen());
-      Navigator.pushReplacement(context, route);
-    }
-    final route = MaterialPageRoute(builder: (context) => AccountScreen());
-    Navigator.pushReplacement(context, route);
+  Future<void> _checkNavigateToAccount() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    currentUser == null ? Get.offAll(LoginScreen()) : Get.to(AccountScreen());
   }
 }

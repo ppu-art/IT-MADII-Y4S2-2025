@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:mad/data/app_shared_pref.dart';
 import 'package:mad/screens/login_screen.dart';
 import 'package:mad/service/facebook_auth_service.dart';
+import 'package:mad/service/firebase_auth_service.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -16,6 +17,7 @@ class AccountScreen extends StatefulWidget {
 class _AccountScreenState extends State<AccountScreen> {
   String? _fullName;
   String? _email;
+  String? _profileUrl;
 
   final auth = FirebaseAuth.instance;
 
@@ -33,18 +35,12 @@ class _AccountScreenState extends State<AccountScreen> {
     final currentUser = await auth.currentUser;
     String? fullName = currentUser!.displayName;
     String? email = currentUser!.email;
+    String? profileUrl = currentUser.photoURL;
     setState(() {
       _fullName = fullName;
       _email = email;
+      _profileUrl = profileUrl;
     });
-  }
-
-  Future<void> _logout() async {
-    // final appSharedPref = AppSharedPref();
-    // appSharedPref.logout();
-    // await auth.signOut();
-    await FacebookAuthService.instance.facebookSignOut();
-    Get.offAll(LoginScreen());
   }
 
   @override
@@ -64,6 +60,20 @@ class _AccountScreenState extends State<AccountScreen> {
             Expanded(
               child: Column(
                 children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 8),
+                    child: CircleAvatar(
+                      child: _profileUrl == null
+                          ? Image.asset(
+                              "assets/images/profile_default.png",
+                              width: 500,
+                              height: 500,
+                            )
+                          : Image.network(_profileUrl!),
+                      radius: 30,
+                      backgroundColor: Colors.indigoAccent,
+                    ),
+                  ),
                   ListTile(
                     title: Text("$_fullName"),
                     subtitle: Text("Full Name"),
@@ -81,11 +91,8 @@ class _AccountScreenState extends State<AccountScreen> {
                 width: MediaQuery.of(context).size.width,
                 child: ElevatedButton(
                   onPressed: () {
-                    _logout();
-                    final route = MaterialPageRoute(
-                      builder: (context) => LoginScreen(),
-                    );
-                    Navigator.pushReplacement(context, route);
+                    FirebaseAuthService.instance.logout();
+                    Get.offAll(LoginScreen());
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
