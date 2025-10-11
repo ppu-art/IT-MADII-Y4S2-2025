@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mad/controller/favorite_controller.dart';
+import 'package:mad/controller/firebase_realtime_db_controller.dart';
 import 'package:mad/data/app_shared_pref.dart';
 import 'package:mad/model/faculty.dart';
 import 'package:mad/model/menu.dart';
@@ -22,11 +23,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final searchController = TextEditingController();
+
   String _fullName = "Guest";
+  bool _isLoadingMenu = true;
   List<Menu> _menuList = [];
+
   int _totalFavorite = 0;
 
   final favoriteController = Get.put(FavoriteController());
+  final firebaseRealtimeDBController = Get.put(FirebaseRealtimeDBController());
 
   final auth = FirebaseAuth.instance;
 
@@ -34,7 +39,27 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _getFullName();
-    _getAllMenus();
+    //_getAllMenus();
+    _loadDataFromFirebase();
+  }
+
+  Future<void> _loadDataFromFirebase() async {
+    List<Menu> _menu = [];
+    await firebaseRealtimeDBController
+        .getRealtimeDB(FirebaseRealtimeDBController.menuRefId)
+        .then((data) {
+          print("Data : $data");
+          data.forEach((key, value) {
+            print("Key : $key");
+            print("Value : $value");
+            final menu = Menu(title: value["title"]);
+            _menu.add(menu);
+          });
+        });
+    setState(() {
+      _isLoadingMenu = false;
+      _menuList = _menu;
+    });
   }
 
   Future<void> _getFullName() async {
@@ -42,13 +67,6 @@ class _HomeScreenState extends State<HomeScreen> {
     final User? currentUser = await auth.currentUser;
     setState(() {
       _fullName = currentUser!.displayName ?? currentUser!.email ?? "Guest";
-    });
-  }
-
-  Future<void> _getAllMenus() async {
-    List<Menu> menuList = await MenuService.instance.getAllMenus();
-    setState(() {
-      _menuList = menuList;
     });
   }
 
@@ -205,7 +223,6 @@ class _HomeScreenState extends State<HomeScreen> {
     List<Widget> menuItems = _menuList.map((menu) {
       return Padding(
         padding: EdgeInsets.only(right: 16),
-
         child: Column(
           children: [
             Image.asset("assets/images/faculty.png"),
@@ -227,10 +244,15 @@ class _HomeScreenState extends State<HomeScreen> {
     // Option2
     return Padding(
       padding: EdgeInsets.only(left: 16, top: 16),
-      child: SizedBox(
-        height: 100,
-        child: ListView(scrollDirection: Axis.horizontal, children: menuItems),
-      ),
+      child: _isLoadingMenu
+          ? Center(child: CircularProgressIndicator())
+          : SizedBox(
+              height: 100,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: menuItems,
+              ),
+            ),
     );
   }
 

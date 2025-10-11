@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:mad/data/app_shared_pref.dart';
+import 'package:mad/screens/admin_screen.dart';
 import 'package:mad/screens/login_screen.dart';
 import 'package:mad/service/facebook_auth_service.dart';
 import 'package:mad/service/firebase_auth_service.dart';
@@ -51,7 +52,6 @@ class _AccountScreenState extends State<AccountScreen> {
         title: Text("Account", style: TextStyle(color: Colors.white)),
         centerTitle: true,
         elevation: 0.5,
-
         actions: [Icon(Icons.edit, color: Colors.white)],
       ),
       body: Center(
@@ -80,6 +80,14 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                   Divider(),
                   ListTile(title: Text("$_email"), subtitle: Text("Email")),
+                  Divider(),
+                  ListTile(
+                    title: Text("Admin"),
+                    subtitle: Text("Admin Dashboard"),
+                    onTap: () {
+                      Get.to(AdminScreen());
+                    },
+                  ),
                   Divider(),
                 ],
               ),

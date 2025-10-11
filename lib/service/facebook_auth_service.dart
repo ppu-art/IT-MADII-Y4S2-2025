@@ -31,6 +31,7 @@ class FacebookAuthService {
         OAuthCredential credential = FacebookAuthProvider.credential(
           result.accessToken!.tokenString,
         );
+
         UserCredential userCredential = await FirebaseAuth.instance
             .signInWithCredential(credential);
         // Update information from facebook to Firebase

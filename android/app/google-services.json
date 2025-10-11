@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "640025630782",
+    "firebase_url": "https://ppua-98c49-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "ppua-98c49",
     "storage_bucket": "ppua-98c49.firebasestorage.app"
   },
@@ -12,7 +13,20 @@
           "package_name": "kh.edu.ppua.mad"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "640025630782-f451i3tiags0to13u8n94odl22h4u402.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kh.edu.ppua.mad",
+            "certificate_hash": "e835a84ac8464e34a56cc557610593a2b018f36c"
+          }
+        },
+        {
+          "client_id": "640025630782-5me7oo0t48u06m0p3nm2410gc67m5cbq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDiisyQ7u3-RY-HpfYfrlfHqQ0ugcNJLOE"
@@ -20,7 +34,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "640025630782-5me7oo0t48u06m0p3nm2410gc67m5cbq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "640025630782-e7089qan8udr7veu3auqrvlvutanep93.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mad"
+              }
+            }
+          ]
         }
       }
     }

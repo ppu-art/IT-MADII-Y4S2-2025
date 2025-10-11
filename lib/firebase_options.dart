@@ -46,6 +46,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '640025630782',
     projectId: 'ppua-98c49',
     authDomain: 'ppua-98c49.firebaseapp.com',
+    databaseURL: 'https://ppua-98c49-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'ppua-98c49.firebasestorage.app',
     measurementId: 'G-W2QJQF5SNE',
   );
@@ -55,6 +56,7 @@ class DefaultFirebaseOptions {
     appId: '1:640025630782:android:9ed213051b44365bbe596f',
     messagingSenderId: '640025630782',
     projectId: 'ppua-98c49',
+    databaseURL: 'https://ppua-98c49-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'ppua-98c49.firebasestorage.app',
   );
 
@@ -63,7 +65,10 @@ class DefaultFirebaseOptions {
     appId: '1:640025630782:ios:5183f531fb7d3c47be596f',
     messagingSenderId: '640025630782',
     projectId: 'ppua-98c49',
+    databaseURL: 'https://ppua-98c49-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'ppua-98c49.firebasestorage.app',
+    androidClientId: '640025630782-f451i3tiags0to13u8n94odl22h4u402.apps.googleusercontent.com',
+    iosClientId: '640025630782-e7089qan8udr7veu3auqrvlvutanep93.apps.googleusercontent.com',
     iosBundleId: 'com.example.mad',
   );
 
@@ -72,7 +77,10 @@ class DefaultFirebaseOptions {
     appId: '1:640025630782:ios:5183f531fb7d3c47be596f',
     messagingSenderId: '640025630782',
     projectId: 'ppua-98c49',
+    databaseURL: 'https://ppua-98c49-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'ppua-98c49.firebasestorage.app',
+    androidClientId: '640025630782-f451i3tiags0to13u8n94odl22h4u402.apps.googleusercontent.com',
+    iosClientId: '640025630782-e7089qan8udr7veu3auqrvlvutanep93.apps.googleusercontent.com',
     iosBundleId: 'com.example.mad',
   );
 
@@ -82,6 +90,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '640025630782',
     projectId: 'ppua-98c49',
     authDomain: 'ppua-98c49.firebaseapp.com',
+    databaseURL: 'https://ppua-98c49-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'ppua-98c49.firebasestorage.app',
     measurementId: 'G-676H674PP3',
   );
