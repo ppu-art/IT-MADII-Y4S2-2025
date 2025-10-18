@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
     //final fullName = await AppSharedPref().getFullName();
     final User? currentUser = await auth.currentUser;
     setState(() {
-      _fullName = currentUser!.displayName ?? currentUser!.email ?? "Guest";
+      _fullName = currentUser?.displayName ?? currentUser?.email ?? "Guest";
     });
   }
 

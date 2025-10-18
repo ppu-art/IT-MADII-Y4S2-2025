@@ -64,6 +64,7 @@ class _AdminMenuScreenState extends State<AdminMenuScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.indigoAccent,
+        centerTitle: true,
         title: Text("Menu List", style: TextStyle(color: Colors.white)),
         actions: [
           GestureDetector(
@@ -78,13 +79,22 @@ class _AdminMenuScreenState extends State<AdminMenuScreen> {
           ? Center(child: CircularProgressIndicator())
           : menuList.length == 0
           ? Center(child: Text("No Data"))
-          : ListView.builder(
+          : ListView.separated(
               itemCount: menuList.length,
               itemBuilder: (BuildContext context, int index) {
                 Menu menuItem = menuList[index];
                 return ListTile(
                   title: Text("${menuItem.title}"),
                   subtitle: Text("${menuItem.title}"),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const Divider(
+                  color: Colors.grey,
+                  height: 1,
+                  thickness: 1,
+                  indent: 16,
+                  endIndent: 16,
                 );
               },
             ),

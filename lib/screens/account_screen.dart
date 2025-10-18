@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:mad/data/app_shared_pref.dart';
+import 'package:mad/screens/admin_faculty_screen.dart';
+import 'package:mad/screens/admin_menu_screen.dart';
+import 'package:mad/screens/admin_news_screen.dart';
 import 'package:mad/screens/admin_screen.dart';
 import 'package:mad/screens/login_screen.dart';
 import 'package:mad/service/facebook_auth_service.dart';
@@ -82,10 +85,26 @@ class _AccountScreenState extends State<AccountScreen> {
                   ListTile(title: Text("$_email"), subtitle: Text("Email")),
                   Divider(),
                   ListTile(
-                    title: Text("Admin"),
-                    subtitle: Text("Admin Dashboard"),
+                    title: Text("Menu"),
+                    subtitle: Text("List Menu"),
                     onTap: () {
-                      Get.to(AdminScreen());
+                      Get.to(AdminMenuScreen());
+                    },
+                  ),
+                  Divider(),
+                  ListTile(
+                    title: Text("Faculty"),
+                    subtitle: Text("List Faculty"),
+                    onTap: () {
+                      Get.to(AdminFacultyScreen());
+                    },
+                  ),
+                  Divider(),
+                  ListTile(
+                    title: Text("News"),
+                    subtitle: Text("List News"),
+                    onTap: () {
+                      Get.to(AdminNewsScreen());
                     },
                   ),
                   Divider(),

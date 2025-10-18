@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mad/screens/admin_faculty_screen.dart';
 import 'package:mad/screens/admin_menu_screen.dart';
+import 'package:mad/screens/admin_news_screen.dart';
 
 class AdminScreen extends StatefulWidget {
   const AdminScreen({super.key});
@@ -34,9 +36,21 @@ class _AdminScreenState extends State<AdminScreen> {
               },
             ),
             Divider(),
-            ListTile(title: Text("Faculty"), subtitle: Text("List Faculty")),
+            ListTile(
+              title: Text("Faculty"),
+              subtitle: Text("List Faculty"),
+              onTap: () {
+                Get.to(AdminFacultyScreen());
+              },
+            ),
             Divider(),
-            ListTile(title: Text("News"), subtitle: Text("List News")),
+            ListTile(
+              title: Text("News"),
+              subtitle: Text("List News"),
+              onTap: () {
+                Get.to(AdminNewsScreen());
+              },
+            ),
             Divider(),
           ],
         ),

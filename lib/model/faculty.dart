@@ -4,14 +4,13 @@ part 'faculty.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Faculty {
-  int? id;
+  String? id;
+  @JsonKey(name: "nameEn")
   String? name;
+  @JsonKey(name: "nameKh")
   String? nameKh;
-  @JsonKey(name: "user_email")
-  String? email;
-  String? phone;
 
-  Faculty({this.id, this.name, this.nameKh, this.email, this.phone});
+  Faculty({this.id, this.name, this.nameKh});
 
   // Serialization
   Map<String, dynamic> toJson() => _$FacultyToJson(this);

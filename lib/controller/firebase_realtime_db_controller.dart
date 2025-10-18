@@ -6,8 +6,6 @@ class FirebaseRealtimeDBController extends GetxController {
 
   static String userRefId = "users";
   static String menuRefId = "menu";
-  static String newsRefId = "news";
-  static String facultyRefId = "faculty";
 
   Future<Map<dynamic, dynamic>> getRealtimeDB(String refId) async {
     final snapshot = await db.ref(refId).get();

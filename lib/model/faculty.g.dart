@@ -7,17 +7,13 @@ part of 'faculty.dart';
 // **************************************************************************
 
 Faculty _$FacultyFromJson(Map<String, dynamic> json) => Faculty(
-  id: (json['id'] as num?)?.toInt(),
-  name: json['name'] as String?,
+  id: json['id'] as String?,
+  name: json['nameEn'] as String?,
   nameKh: json['nameKh'] as String?,
-  email: json['email'] as String?,
-  phone: json['phone'] as String?,
 );
 
 Map<String, dynamic> _$FacultyToJson(Faculty instance) => <String, dynamic>{
   'id': instance.id,
-  'name': instance.name,
+  'nameEn': instance.name,
   'nameKh': instance.nameKh,
-  'email': instance.email,
-  'phone': instance.phone,
 };
