@@ -63,7 +63,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _getFullName() async {
-    //final fullName = await AppSharedPref().getFullName();
     final User? currentUser = await auth.currentUser;
     setState(() {
       _fullName = currentUser?.displayName ?? currentUser?.email ?? "Guest";
@@ -72,10 +71,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final favoriteProvider = Provider.of<FavoriteProvider>(
-    //   context,
-    //   listen: true,
-    // );
     List<Map<String, int>> favoriteList = favoriteController.favorites;
     setState(() {
       _totalFavorite = favoriteList.length;
